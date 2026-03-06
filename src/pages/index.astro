@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import BlogGrid from '../components/BlogGrid.astro';
+import Subscribe from '../components/Subscribe.astro';
+import { fetchSubstackPosts } from '../lib/rss';
+
+const posts = await fetchSubstackPosts();
+---
+
+<BaseLayout
+  title="Klyket — Words on art, literature, and the beauty of everyday life"
+  description="A newsletter by Calum exploring art, literature, and the beauty of everyday life."
+>
+  <Hero />
+  <BlogGrid posts={posts} />
+  <About />
+  <Subscribe />
+</BaseLayout>

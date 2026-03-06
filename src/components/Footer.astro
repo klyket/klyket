@@ -1,0 +1,46 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="copyright">&copy; {year} Klyket</p>
+    <a
+      href="https://klyket.substack.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="substack-link"
+    >
+      Substack
+    </a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .copyright {
+    font-size: var(--fs-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .substack-link {
+    font-size: var(--fs-sm);
+    color: var(--color-text-secondary);
+    transition: color var(--transition);
+  }
+
+  .substack-link:hover {
+    color: var(--color-text);
+  }
+</style>

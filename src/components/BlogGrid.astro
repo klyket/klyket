@@ -1,0 +1,60 @@
+---
+import BlogCard from './BlogCard.astro';
+import type { SubstackPost } from '../lib/types';
+
+interface Props {
+  posts: SubstackPost[];
+}
+
+const { posts } = Astro.props;
+---
+
+<section id="writing" class="writing section">
+  <div class="container">
+    {posts.length > 0 ? (
+      <div class="posts-list">
+        {posts.map((post) => (
+          <BlogCard
+            title={post.title}
+            link={post.link}
+            pubDate={post.pubDate}
+            description={post.description}
+            coverImage={post.coverImage}
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state">
+        <p class="empty-title">No posts yet</p>
+        <p class="empty-text">New writing is on its way. Subscribe to be notified when the first post is published.</p>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .writing {
+    padding-top: var(--space-lg);
+  }
+
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .empty-state {
+    padding-block: var(--space-lg);
+  }
+
+  .empty-title {
+    font-family: var(--ff-serif);
+    font-size: var(--fs-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .empty-text {
+    color: var(--color-text-secondary);
+    max-width: 45ch;
+  }
+</style>

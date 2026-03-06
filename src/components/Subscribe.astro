@@ -1,0 +1,55 @@
+<section id="subscribe" class="subscribe section">
+  <div class="container subscribe-content">
+    <h2 class="subscribe-heading">Stay in the loop</h2>
+    <p class="subscribe-text">
+      Get new posts delivered to your inbox. No spam, just words worth reading.
+    </p>
+    <a
+      href="https://klyket.substack.com/subscribe"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="subscribe-button"
+    >
+      Subscribe
+    </a>
+  </div>
+</section>
+
+<style>
+  .subscribe {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .subscribe-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .subscribe-heading {
+    font-size: var(--fs-xl);
+  }
+
+  .subscribe-text {
+    color: var(--color-text-secondary);
+    max-width: 45ch;
+  }
+
+  .subscribe-button {
+    display: inline-block;
+    margin-top: var(--space-xs);
+    padding: 0.75rem 2rem;
+    background-color: #3D3229;
+    color: #FDF8F0;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--ls-wide);
+    border-radius: 3px;
+    transition: background-color var(--transition);
+    width: fit-content;
+  }
+
+  .subscribe-button:hover {
+    background-color: #2A221B;
+  }
+</style>

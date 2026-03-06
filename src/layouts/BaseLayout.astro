@@ -1,0 +1,48 @@
+---
+import '@fontsource/cormorant-garamond/400.css';
+import '@fontsource/cormorant-garamond/600.css';
+import '@fontsource/karla/400.css';
+import '@fontsource/karla/700.css';
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+
+const { title, description, ogImage } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SEO title={title} description={description} ogImage={ogImage} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('theme') ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+
+        document.addEventListener('click', function(e) {
+          const btn = e.target.closest('.theme-toggle');
+          if (!btn) return;
+          const current = document.documentElement.getAttribute('data-theme');
+          const next = current === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+        });
+      })();
+    </script>
+  </body>
+</html>

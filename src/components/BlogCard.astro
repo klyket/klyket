@@ -1,0 +1,94 @@
+---
+import { formatDate, truncate } from '../lib/utils';
+
+interface Props {
+  title: string;
+  link: string;
+  pubDate: string;
+  description: string;
+  coverImage?: string;
+}
+
+const { title, link, pubDate, description, coverImage } = Astro.props;
+---
+
+<article class="post-item">
+  <a href={link} target="_blank" rel="noopener noreferrer" class="post-link">
+    {coverImage && (
+      <img src={coverImage} alt="" class="post-image" loading="lazy" />
+    )}
+    <div class="post-content">
+      <h3 class="post-title">{title}</h3>
+      {description && (
+        <p class="post-excerpt">{truncate(description, 180)}</p>
+      )}
+      <time class="post-date" datetime={new Date(pubDate).toISOString()}>
+        {formatDate(pubDate)}
+      </time>
+    </div>
+  </a>
+</article>
+
+<style>
+  .post-item {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-xl);
+  }
+
+  .post-link {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: var(--space-lg);
+    align-items: start;
+    transition: opacity var(--transition);
+  }
+
+  .post-link:hover {
+    opacity: 0.8;
+  }
+
+  .post-image {
+    order: 2;
+    width: 200px;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .post-content {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .post-title {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-snug);
+  }
+
+  .post-excerpt {
+    color: var(--color-text-secondary);
+    font-size: var(--fs-base);
+    line-height: var(--lh-normal);
+    max-width: 55ch;
+  }
+
+  .post-date {
+    font-size: var(--fs-sm);
+    color: var(--color-text-secondary);
+    margin-top: var(--space-xs);
+  }
+
+  @media (max-width: 600px) {
+    .post-link {
+      grid-template-columns: 1fr;
+    }
+    .post-image {
+      order: 0;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    }
+  }
+</style>
