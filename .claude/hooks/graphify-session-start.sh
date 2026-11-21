@@ -35,7 +35,7 @@ else
   # only moves when code changes, so it is not a reliable staleness signal on its own.
   out=$(graphify update . 2>&1); rc=$?
   if [ $rc -ne 0 ]; then state="stale (update failed: run 'graphify update .')"
-  elif printf '%s' "$out" | grep -q "No code-graph topology changes\|Nothing to update\|No files changed"; then state="fresh (verified against working tree)"
+  elif printf '%s' "$out" | grep -q "No code-graph topology changes\|No relevant changes\|Nothing to update\|No files changed"; then state="fresh (verified against working tree)"
   else state="updated incrementally"
   fi
 fi
