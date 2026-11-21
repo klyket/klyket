@@ -1,0 +1,11 @@
+# Graphify exclusions (in addition to .gitignore)
+package-lock.json
+.netlify/
+.env*
+*.pem
+*.key
+graphify-out/
+
+# Tooling config, not project code
+.claude/
+.vscode/
