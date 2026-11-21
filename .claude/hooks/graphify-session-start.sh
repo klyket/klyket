@@ -30,11 +30,13 @@ if [ ! -f "$G" ]; then
   graphify extract . --code-only >/dev/null 2>&1 && graphify cluster-only . --no-label --no-viz >/dev/null 2>&1
   state="built"
 else
-  built=$(python3 -c "import json;print(json.load(open('$G')).get('built_at_commit') or '')" 2>/dev/null)
-  head=$(git rev-parse HEAD 2>/dev/null)
-  dirty=$(git status --porcelain --untracked-files=normal -- . ':!graphify-out' 2>/dev/null | head -1)
-  if [ -n "$head" ] && { [ "${built:0:7}" != "${head:0:7}" ] || [ -n "$dirty" ]; }; then
-    graphify update . >/dev/null 2>&1 && state="updated" || state="stale (update failed)"
+  # `graphify update` is incremental (content hashes in manifest.json): a no-op when
+  # nothing changed, AST re-extraction of only the changed files otherwise. built_at_commit
+  # only moves when code changes, so it is not a reliable staleness signal on its own.
+  out=$(graphify update . 2>&1); rc=$?
+  if [ $rc -ne 0 ]; then state="stale (update failed: run 'graphify update .')"
+  elif printf '%s' "$out" | grep -q "No code-graph topology changes\|Nothing to update\|No files changed"; then state="fresh (verified against working tree)"
+  else state="updated incrementally"
   fi
 fi
 
